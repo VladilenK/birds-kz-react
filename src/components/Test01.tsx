@@ -14,24 +14,26 @@ console.log("api...")
 
 
 const Test01 = () => {
-  console.log("app...")
+  console.log("Test01...")
   const [hello, setHello] = useState<Props>({message: 'wait...'});
 
   const fetchHello = async () => {
-    console.log("fetchHello...")
+    console.log("Test01 fetchHello...")
     // const response = await axios.get('https://afadpt01.azurewebsites.net/hello/Birdwatchers');
-    const response = await axios.get('https://afadpt01.azurewebsites.net/birdskz');
+    const response = await axios.get('https://birdskz.azurewebsites.net/birdskz');
     setHello(response.data)
     console.log(response.data)
   }
   
   useEffect( () => {
-    console.log("useEffect...")
+    console.log("Test01 useEffect...")
     fetchHello();
   }, []);
 
   return (
+    <>
     <div>  {hello.message}</div>
+    </>
   )
 }
 

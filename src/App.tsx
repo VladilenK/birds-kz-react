@@ -7,15 +7,17 @@ function App() {
 
   return (
     <>
-      <div>
+    <h2>Птицы Казахстана: лучшие фотографии</h2>
+    <div>
         <Cards/>       
       </div>
       <div>
         <Test01></Test01>
       </div>
       <p className="read-the-docs">
-        = Birds of Kazakhstan =
+        <a href="https://kz.birds.watch/">Birds of Kazakhstan</a>
       </p>
+      <a href="https://kz.birds.watch/"><img src="/images/birds.kz.logo.jpg" alt="logo"></img></a>  
     </>
   )
 }
