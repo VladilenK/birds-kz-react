@@ -5,7 +5,7 @@ interface Props {
   message: string;
 }
 
-console.log("api...")
+console.log("Test01 api...")
 // const api = axios.create({
 //   // localURL: 'http://localhost:8000/',     
 //   // baseURL: 'https://afadpt01.azurewebsites.net',
@@ -24,7 +24,7 @@ const Test01 = () => {
     setHello(response.data)
     console.log(response.data)
   }
-  
+
   useEffect( () => {
     console.log("Test01 useEffect...")
     fetchHello();

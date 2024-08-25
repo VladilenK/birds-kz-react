@@ -1,55 +1,65 @@
-// import { MouseEvent, useState } from "react"
+import Bird from "./Bird";
 import {useState, useEffect}  from "react";
-import axios from 'axios'
-import Card from "./Card";
 
-interface Bird {
-    taxon_name: string;
-    taxon_link: string;
-    location: string;
-    pic_url: string;
-    author: string;
-}
 interface Birds extends Array<Bird>{}
-  
-console.log("api...")
-const api = axios.create({
-// localURL: 'http://localhost:8000/',     
-// baseURL: 'https://afadpt01.azurewebsites.net',
-baseURL: 'https://birdskz.azurewebsites.net',
-// headers: {"Access-Control-Allow-Origin": "*"}
-});
-  
-  
-function ListGroup() {
-    const [thebest, setTheBest] = useState<Birds>([]);
-    const fetchTheBest = async () => {
-        console.log("fetchTheBest...")
-        const response = await api.get('/dailybest');
-        setTheBest(response.data)
-        console.log(response.data)
-      }
-      
-      useEffect( () => {
-        console.log("useEffect...")
-        fetchTheBest();
-      }, []);
-        
-    
-    return (
-        <>
-            <h3>Фотографии, заслужившие больше всего внимания за последние дни</h3>
-            {thebest.length === 0 && <p>fetching the best pictures...</p>}
-            <div className="row row-cols-3 g-3">
-                {thebest.map((item) =>
-                    (
-                        <Card url={item.pic_url} title={item.taxon_name} location={item.location} link={item.taxon_link} author={item.author} >
-                        </Card>
-                    )
-                )}
-            </div>
-        </>
-    )
+
+// console.log("Cards body...")
+
+const Cards = () => {
+  // console.log("Cards func...")
+  const [theBestBirds, setTheBest] = useState<Birds>([]);
+
+  const getData=()=>{
+    fetch('images/dailybest.json')
+      .then(results => {
+        // console.log("results:");
+        // console.log(results);
+        return results.json();
+      })
+      .then(function(myJson) {
+        // console.log("myJson:");
+        // console.log(myJson);
+        setTheBest(myJson.bestBirds);
+        // console.log(theBestBirds);
+
+      });
+  }
+  useEffect(()=>{
+    getData()
+  },[])
+
+  return (
+    <>
+      <h3>Фотографии сообщества "Птицы Казахстана", отмеченные как красивые за месяц:</h3>
+      {theBestBirds.length === 0 && <p>fetching the best pictures...</p>}
+      {/* <div className="row row-cols-4 g-4"> */}
+      <div className="row">
+          {theBestBirds.map((item) =>
+              (
+                  // <Card bird={item}  >
+                  // </Card>
+                <div className="col-md-3" key={item.picturekey}>
+                <div className='thumbnail'>
+                  <a href={item.pic_page_url}>
+                    <img className='card-img-top' src={
+                        "/images/dailybest/" + item.pic_url.split("/")[6]
+                      } 
+                      alt={
+                        "Вид птицы:" + item.taxon_name + ", сфотографировал:" + item.author + ", место съемки:" + item.location
+                      }></img>
+                  </a>
+                  <div className='card-body'>
+                        <h5 className='card-title'><a href={item.taxon_link}>{item.taxon_name}</a></h5>                 
+                        <p className='card-text'>{item.location} <br/> Автор снимка: <a href={item.author_url}>{item.author}</a> </p>
+                    </div>
+                    <br/>
+                  </div>
+              </div>
+              )
+          )}
+      </div>
+    </>
+  )
 }
 
-export default ListGroup;
+export default Cards

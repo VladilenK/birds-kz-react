@@ -1,29 +1,51 @@
 // import React from 'react'
+// import Bird from "./Bird";
 
-interface Props {
-    url: string;
-    link: string;
-    title: string;
-    location: string;
-    author: string;
-}
+// interface Props {
+//   bird:Bird;
+// }
 
-const Card = ({url, link, title, location, author}: Props) => {
-  const picLocalUrl = "/images/dailybest/" + url.split("/")[6]
-  console.log(picLocalUrl)
-  return (
-    <>
-    <div className="col">
-        <div className='card'>
-            <img className='card-img-top' src={picLocalUrl} alt={title}></img>
-            <div className='card-body'>
-                <h5 className='card-title'><a href={link}>{title}</a> </h5>
-                <p className='card-text'>Автор снимка: {author}<br/> Где снято: {location} </p>
-            </div>
-        </div>
-    </div>
-    </>
-  )
-}
+const Card: React.FC = () => {
+	return (
+		<div>
+			<p>sdfg</p>
+		</div>
+	);
+};
+
+
+// const Card = ({bird}: Props) => {
+//   const picLocalUrl = "/images/dailybest/" + bird.pic_url.split("/")[6]
+//   const altText = "Вид птицы:" + bird.taxon_name + ", сфотографировал:" + bird.author + ", место съемки:" + bird.location
+//   console.log(picLocalUrl)
+//   return (
+//     <>
+//     {/* <div className="col">
+//         <div className='card'>
+//           <a href={bird.pic_page_url}>
+//             <img className='card-img-top' src={picLocalUrl} alt={altText}></img>
+//           </a>
+//             <div className='card-body'>
+//                 <h5 className='card-title'><a href={bird.taxon_link}>{bird.taxon_name}</a></h5>                 
+//                 <p className='card-text'>Автор снимка: <a href={bird.author_url}>{bird.author}</a><br/> Где снято: {bird.location} </p>
+//             </div>
+//         </div>
+//     </div> */}
+//       <div className="col-md-3">
+//         <div className='thumbnail'>
+//           <a href={bird.pic_page_url}>
+//             <img className='card-img-top' src={picLocalUrl} alt={altText}></img>
+//           </a>
+//           <div className='card-body'>
+//                 <h5 className='card-title'><a href={bird.taxon_link}>{bird.taxon_name}</a></h5>                 
+//                 <p className='card-text'>{bird.location} <br/> Автор снимка: <a href={bird.author_url}>{bird.author}</a> </p>
+//             </div>
+//             <br/>
+//           </div>
+//       </div>
+
+//     </>
+//   )
+// }
 
 export default Card
