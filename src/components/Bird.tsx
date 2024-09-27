@@ -4,6 +4,7 @@ interface Bird {
     location: string;
     pic_url: string;
     author: string;
+    dateShoot: string;
     taxon_link: string;
     pic_page_url: string;
     author_url: string;

@@ -3,24 +3,29 @@ import {useState, useEffect}  from "react";
 
 interface Birds extends Array<Bird>{}
 
+type CardsProps = {
+  count: number,
+  fileName: string
+}
 // console.log("Cards body...")
 
-const Cards = () => {
-  // console.log("Cards func...")
+const Cards = ({count, fileName}: CardsProps) => {
+  console.log("Cards func...")
+  console.log("Props: count=" + count + ", fileName=" + fileName)
   const [theBestBirds, setTheBest] = useState<Birds>([]);
 
   const getData=()=>{
-    fetch('images/dailybest.json')
+    fetch('images/' + fileName)
       .then(results => {
-        // console.log("results:");
-        // console.log(results);
+        console.log("results:");
+        console.log(results);
         return results.json();
       })
       .then(function(myJson) {
-        // console.log("myJson:");
-        // console.log(myJson);
-        setTheBest(myJson.bestBirds);
-        // console.log(theBestBirds);
+        console.log("myJson:");
+        console.log(myJson);
+        setTheBest(myJson.bestBirds.slice(0, count));
+        console.log(theBestBirds);
 
       });
   }
@@ -30,7 +35,6 @@ const Cards = () => {
 
   return (
     <>
-      <h3>Фотографии сообщества "Птицы Казахстана", отмеченные как красивые за месяц:</h3>
       {theBestBirds.length === 0 && <p>fetching the best pictures...</p>}
       {/* <div className="row row-cols-4 g-4"> */}
       <div className="row">
@@ -45,12 +49,12 @@ const Cards = () => {
                         "/images/dailybest/" + item.pic_url.split("/")[6]
                       } 
                       alt={
-                        "Вид птицы:" + item.taxon_name + ", сфотографировал:" + item.author + ", место съемки:" + item.location
+                        "Вид птицы:" + item.taxon_name + ", сфотографировал:" + item.author + ", место съемки:" + item.location + ", дата: " + item.dateShoot
                       }></img>
                   </a>
                   <div className='card-body'>
                         <h5 className='card-title'><a href={item.taxon_link}>{item.taxon_name}</a></h5>                 
-                        <p className='card-text'>{item.location} <br/> Автор снимка: <a href={item.author_url}>{item.author}</a> </p>
+                        <p className='card-text'>{item.location} <br/> Автор снимка: <a href={item.author_url}>{item.author}</a></p>
                     </div>
                     <br/>
                   </div>
